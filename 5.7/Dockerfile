@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-FROM oraclelinux:7-slim
+FROM centos:7
 
 ARG PACKAGE_URL=https://repo.mysql.com/yum/mysql-5.7-community/docker/x86_64/mysql-community-server-minimal-5.7.19-1.el7.x86_64.rpm
 ARG PACKAGE_URL_SHELL=https://repo.mysql.com/yum/mysql-tools-community/el/7/x86_64/mysql-shell-1.0.10-1.el7.x86_64.rpm
@@ -21,14 +21,14 @@ ARG PACKAGE_URL_SHELL=https://repo.mysql.com/yum/mysql-tools-community/el/7/x86_
 RUN rpmkeys --import https://repo.mysql.com/RPM-GPG-KEY-mysql \
   && yum install -y $PACKAGE_URL $PACKAGE_URL_SHELL libpwquality \
   && yum clean all \
-  && mkdir /docker-entrypoint-initdb.d
-
-VOLUME /var/lib/mysql
+  && mkdir /docker-entrypoint-initdb.d 
+RUN echo "lower_case_table_names = 1" >>/etc/my.cnf
+VOLUME /var/lib/mysql /docker-entrypoint-initdb.d
 
 COPY docker-entrypoint.sh /entrypoint.sh
 COPY healthcheck.sh /healthcheck.sh
 ENTRYPOINT ["/entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
-EXPOSE 3306 33060
+EXPOSE 3306
 CMD ["mysqld"]
 

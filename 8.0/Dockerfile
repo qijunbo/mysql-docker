@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-FROM centos
+FROM centos:7
 
 ARG PACKAGE_URL=https://repo.mysql.com/yum/mysql-8.0-community/docker/x86_64/mysql-community-server-minimal-8.0.3-0.1.rc.el7.x86_64.rpm
 ARG PACKAGE_URL_SHELL=https://repo.mysql.com/yum/mysql-tools-preview/el/7/x86_64/mysql-shell-8.0.0-0.1.dmr.el7.x86_64.rpm
@@ -29,6 +29,6 @@ COPY docker-entrypoint.sh /entrypoint.sh
 COPY healthcheck.sh /healthcheck.sh
 ENTRYPOINT ["/entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
-EXPOSE 3306 33060
+EXPOSE 3306
 CMD ["mysqld"]
 
