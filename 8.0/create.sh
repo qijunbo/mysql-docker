@@ -16,7 +16,7 @@ docker container prune -f
 docker run --name ${name} -e MYSQL_ROOT_PASSWORD=sunway123# -d -P \
     -v /root/mysql/${name}/data:/var/lib/mysql  \
     -v /root/mysql/${name}/initsql:/docker-entrypoint-initdb.d \
-      mysql --character-set-server=utf8 --collation-server=utf8_general_ci
+      qijunbo/mysql --character-set-server=utf8 --collation-server=utf8_general_ci
 docker ps -a
 
 
