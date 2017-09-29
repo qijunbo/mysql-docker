@@ -64,7 +64,7 @@ if you want to lean more, refer this link [host-is-not-allowed-to-connect-to-thi
 * Check table name insensitive
 
 ```
-mysqladmin -u root -p variables  | grep  "case"
+mysqladmin -u root -psunway123# variables  | grep  "case"
 ```
 
 and you must get this .
